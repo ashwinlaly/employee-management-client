@@ -12,6 +12,7 @@ const Routes = () => {
           <Switch>
             <Route path="/home" component={Sidebar} />
             <Route path="/login" component={Login} />
+            <Route path="/" component={Login} />
             <Redirect from="*" to="/" />
           </Switch>
         </Router>

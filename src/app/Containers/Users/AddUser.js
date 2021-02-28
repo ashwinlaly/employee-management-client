@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -19,28 +20,22 @@ class AddUser extends Component {
         return (
             <Container fluid>
                 <Row xs={12} md={12}>
-                    <Col/>
-                    <Col xs={6}>
+                    <Col xs={12}>
                         <Card id="card" style={mystyle.card}>
-                            <Card.Header>Login</Card.Header>
                             <Card.Body>
                                 <Card.Title></Card.Title>
                                 <Form onSubmit={this._onhandleSubmit}>
                                     <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Email address</Form.Label>
+                                        <Form.Label>Email</Form.Label>
                                         <Form.Control type="email" placeholder="Enter email" />
                                     </Form.Group>
 
-                                    <Form.Group controlId="formBasicPassword">
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" />
-                                    </Form.Group>
                                     <Button variant="primary" type="submit" >Submit</Button>
+                                    <Link to="/home/users" className="btn btn-danger">Back</Link>
                                 </Form>
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col />
                 </Row>
             </Container>
         )

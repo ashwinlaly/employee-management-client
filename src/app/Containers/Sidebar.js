@@ -1,31 +1,15 @@
 import React, { Component, Fragment, lazy } from 'react';
-
 import {Switch, Route, Redirect, Link} from 'react-router-dom';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+
+const Header = lazy(() => import("./Header"));
 
 const User = lazy(() => import("../Containers/Users"));
+const EditUser = lazy(() => import("../Containers/Users/Edit"));
+const AddUser = lazy(() => import("../Containers/Users/AddUser"));
+
 const Project = lazy(() => import("../Containers/Projects"));
-
-class Header extends Component {
-    render() {
-        return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
-                    <NavDropdown title="" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="#">Logout</NavDropdown.Item>
-                    </NavDropdown>
-                </ul>
-            </div>
-        </nav>
-        )
-    }
-}
+const AddProject = lazy(() => import("./Projects/Add"));
+const EditProject = lazy(() => import("../Containers/Projects/Edit"));
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
@@ -42,10 +26,10 @@ class Sidebar extends Component {
                         <div className="sidebar-heading"> EMP MANAGE </div>
                         <div className="list-group list-group-flush">
                             <Link to="/home" className="list-group-item list-group-item-action bg-light">Dashboard</Link>
-                            <Link to="/home/user" className="list-group-item list-group-item-action bg-light">Users</Link>
-                            <Link to="/home/project" className="list-group-item list-group-item-action bg-light">Projects</Link>
-                            <Link to="/home/user" className="list-group-item list-group-item-action bg-light">Departments</Link>
-                            <Link to="/home/user" className="list-group-item list-group-item-action bg-light">Leave History</Link>
+                            <Link to="/home/users" className="list-group-item list-group-item-action bg-light">Employee</Link>
+                            <Link to="/home/projects" className="list-group-item list-group-item-action bg-light">Projects</Link>
+                            <Link to="/home/department" className="list-group-item list-group-item-action bg-light">Departments</Link>
+                            <Link to="/home/leave" className="list-group-item list-group-item-action bg-light">Leave History</Link>
                         </div>
                     </div>
 
@@ -53,8 +37,12 @@ class Sidebar extends Component {
                         <Header />
                         <div className="container-fluid">
                             <Switch>
-                                <PrivateRoute exact path="/home/project" component={Project}/>
-                                <PrivateRoute exact path="/home/user" component={User}/>
+                                <PrivateRoute exact path="/home/projects" component={Project}/>
+                                <PrivateRoute exact path="/home/project/add" component={AddProject}/>
+                                <PrivateRoute exact path="/home/project/:id" component={EditProject}/>
+                                <PrivateRoute exact path="/home/users" component={User}/>
+                                <PrivateRoute exact path="/home/user/add" component={AddUser}/>
+                                <PrivateRoute exact path="/home/user/:id" component={EditUser}/>
                             </Switch>
                         </div>
                     </div>

@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer} from 'redux-form';
-import projects from './projectReducer';
+
+import users from './userReducer';
 import common from './commonReducer';
+import projects from './projectReducer';
+
 
 const reducers = combineReducers({
-    projects,
+    users,
     common,
+    projects,
     form: formReducer
 })
 

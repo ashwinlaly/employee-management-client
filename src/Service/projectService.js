@@ -1,5 +1,5 @@
 import request from './API';
-const _PROJECT = "projects";
+const _PROJECT = "project";
 
 const projectService = {
     getProjects: () => {

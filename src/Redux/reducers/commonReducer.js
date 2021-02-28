@@ -18,11 +18,11 @@ export default (state = INITIAL_STATE, action) => {
         case commonTypes.REDIRECT:
             return {...state, redirectTo : null}
         case commonTypes.LOGOUT:
-            return {...state, redirectTo : "/", token : null, currectUser : null}
+            window.localStorage.removeItem("jwt")
+            return {...state, redirectTo : "/", token : null, currectUser : null,successmessage: "USER LOGOUT SUCCESS"}
         case commonTypes.SETTINGS_SAVED:
             return {...state}
         case userTypes.USER_LOGIN_SUCCESS:
-            localStorage.setItem('jwt', JSON.stringify(action.payload.data))
             return {...state, 
                     token: action.payload.data.access_token,
                     refresh_token: action.payload.data.refresh_token,

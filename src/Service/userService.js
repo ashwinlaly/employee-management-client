@@ -5,19 +5,19 @@ const userService = {
         return request.post("/signin", data)
     },
     createUser : (data) => {
-        return request.post("/user", data)
+        return request.post("/employee", data)
     },
     getUser: (_id) => {
-        return request.get(`/user/${_id}`)
+        return request.get(`/employee/${_id}`)
     },
     getUsers: () => {
-        return request.get(`/user`)
+        return request.get(`/employee`)
     },
     deleteUser : (_id) => {
-        return request.delete(`/user/${_id}`)
+        return request.delete(`/employee/${_id}`)
     },
     updateUser: (_id, data) => {
-        return request.patch(`/user/${_id}`, data)
+        return request.patch(`/employee/${_id}`, data)
     }
 }
 

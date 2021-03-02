@@ -9,7 +9,7 @@ const EditUser = lazy(() => import("../Containers/Users/Edit"));
 const AddUser = lazy(() => import("../Containers/Users/AddUser"));
 
 const Project = lazy(() => import("../Containers/Projects"));
-const AddProject = lazy(() => import("./Projects/Add"));
+const AddProject = lazy(() => import("./Projects/AddProject"));
 const EditProject = lazy(() => import("../Containers/Projects/Edit"));
 
 const Department = lazy(() => import("../Containers/Department"));

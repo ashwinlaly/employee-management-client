@@ -15,7 +15,7 @@ const projectService = {
         return request.patch(`/${_PROJECT}/${_id}`,data)
     },
     deleteProject: (_id) => {
-        return request.get(`/${_PROJECT}/${_id}`)
+        return request.delete(`/${_PROJECT}/`, _id)
     }
 }
 

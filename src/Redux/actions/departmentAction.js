@@ -1,8 +1,8 @@
+import { toast } from 'react-toastify';
+import {history} from '../../Routes/history';
 import * as commonTypes from '../actionTypes/common';
 import * as departmentTypes from '../actionTypes/department';
 import departmentService from '../../Service/departmentService';
-import {history} from '../../Routes/history';
-import { toast } from 'react-toastify';
 
 const tokenExpired = (error, actionType, dispatch) => {
     if(error.response.status === 403) {

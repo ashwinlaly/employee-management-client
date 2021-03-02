@@ -1,5 +1,6 @@
 import axios from 'axios';
 const BASE_URL = "http://localhost:5000/api"
+
 // https://employee-leave-management321.herokuapp.com/api
 
 const config = () => {
@@ -28,9 +29,9 @@ const request = {
         let configuration = await config()
         return await axios.patch(`${BASE_URL}${url}`, data, configuration).then(responseBody)
     },
-    delete : async (url) => {
+    delete : async (url, _id) => {
         let configuration = await config()
-        return await axios.delete(`${BASE_URL}${url}`, configuration).then(responseBody)
+        return await axios.delete(`${BASE_URL}${url}${_id}`, configuration).then(responseBody)
     },
 }
 

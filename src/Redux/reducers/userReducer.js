@@ -15,8 +15,6 @@ export default (state = {}, action) => {
             }           
         case userTypes.USER_LOGIN_SUCCESS:
             return {...state }
-        case userTypes.USER_LOGIN_ERROR:
-            break;
         case userTypes.GET_EMPLOYEE_ERROR:
             return {
                 ...state,

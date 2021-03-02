@@ -11,12 +11,11 @@ export const loginAction = (data) => dispatch => {
         } else {
             window.localStorage.removeItem("jwt")
             window.localStorage.setItem('jwt', JSON.stringify(response.data))
-            console.log("JWT1", window.localStorage.getItem("jwt"))
             dispatch({type: userTypes.USER_LOGIN_SUCCESS, payload: response})
             history.push("/home")
         }
     }).catch(error => {
-        dispatch({type: userTypes.USER_LOGIN_ERROR, payload: error})
+        dispatch({type: userTypes.USER_LOGIN_ERROR, payload: null})
     })
 }
 

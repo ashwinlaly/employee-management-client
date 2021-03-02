@@ -1,7 +1,7 @@
 import * as projectTypes from '../actionTypes/project';
 
 export default (projects = {}, action) => {
-    console.log("project Reducer -> ",action.type, action.payload)
+    // console.log("project Reducer -> ",action.type, action.payload)
     switch (action.type) {
         case projectTypes.LISTING_PROJECT_SUCCESS:
             return {...projects, projects: action.payload}

@@ -1,6 +1,7 @@
-import projectService from '../../Service/projectService';
+import {history} from '../../Routes/history';
+import * as commonTypes from '../actionTypes/common';
 import * as projectTypes from '../actionTypes/project';
-import history from '../store';
+import projectService from '../../Service/projectService';
 
 export const createProject = (data) => dispatch => {
     projectService.createProject(data).then(data => {
@@ -30,7 +31,13 @@ export const getProjects = () => dispatch => {
             dispatch({type: projectTypes.GET_PROJECT_SUCCESS, payload: response})
         }
     }).catch(error => {
-        dispatch({type: projectTypes.GET_PROJECT_ERROR, payload: error})
+        if(error.response.status === 403) {
+            window.localStorage.removeItem("jwt")
+            dispatch({type: commonTypes.TOKEN_EXPIRED})
+            history.push("/")
+        } else {
+            dispatch({type: projectTypes.GET_PROJECT_ERROR, payload: error})
+        }
     })
 }
 
@@ -42,6 +49,12 @@ export const deleteProject = (_id) => dispatch => {
             dispatch({type: projectTypes.DELETE_PROJECT_SUCCESS, payload: response})
         }
     }).catch(error => {
-        dispatch({type: projectTypes.DELETE_PROJECT_ERROR, payload: error})
+        if(error.response.status === 403) {
+            window.localStorage.removeItem("jwt")
+            dispatch({type: commonTypes.TOKEN_EXPIRED})
+            history.push("/")
+        } else {
+            dispatch({type: projectTypes.DELETE_PROJECT_ERROR, payload: error})
+        }
     })
 }

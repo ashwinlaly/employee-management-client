@@ -35,6 +35,8 @@ export default (state = INITIAL_STATE, action) => {
                 errormessage: action.payload.message,
                 errors: action.payload.error,
             }
+        case commonTypes.TOKEN_EXPIRED:
+            return {...state, redirectTo : "/", token : null, currectUser : null,errormessage: "Token expired, Login Again."}
         default:
             return state
     }

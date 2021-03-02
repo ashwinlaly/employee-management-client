@@ -24,7 +24,7 @@ class TableList extends Component {
                                 })}
                                 <td key={key}>
                                     <Link className="btn btn-primary" to={`${this.props.url}${data._id}`}> Edit</Link> {'    '}
-                                    <Button variant="danger"> Delete</Button>
+                                    <Button variant="danger" onClick={() => this.props.onDelete(data._id)}> Delete</Button>
                                 </td>
                             </tr>)
                         })}

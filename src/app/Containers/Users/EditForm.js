@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
+import {Field, reduxForm} from 'redux-form';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,10 +11,10 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 import DisplayMessage from '../../Components/DisplayMessage';
-import {renderInput, renderError} from '../../Components/RenderFields';
+import {renderInput, renderError, renderSelect} from '../../Components/RenderFields';
 
-class AddForm extends Component {
-    render(){
+class EditForm extends Component {
+    render() {
         const {handleSubmit} = this.props
         return (
             <Fragment>
@@ -25,9 +26,10 @@ class AddForm extends Component {
                                     <Card.Title></Card.Title>
                                     <Form onSubmit={handleSubmit} method="post">
                                         <Field name="name" component={renderInput} label="Enter the Name"/>
-                                        <Field name="original_name" component={renderInput} label="Enter the Original Name"/>
+                                        <Field name="email" component={renderInput} label="Enter the Email"/>
+                                        <Field name="department_id" label="Select the Department" component={renderSelect} options={this.props.departments} selectOptionName="name" id="_id" selectText="select a Department"/>
                                         <Button variant="primary" type="submit" >Submit</Button>
-                                        <Link className="btn btn-danger" to="/home/department">Back</Link>
+                                        <Link className="btn btn-danger" to="/home/user">Back</Link>
                                     </Form>
                                 </Card.Body>
                             </Card>
@@ -36,7 +38,7 @@ class AddForm extends Component {
                     </Row>
                 </Container>
             </Fragment>
-        )
+        );
     }
 }
 
@@ -46,14 +48,20 @@ const validate = (formValues) => {
     if(!formValues.name) {
         errors.name = 'Please enter a valid Name'
     }
-    if(!formValues.original_name) {
-        errors.original_name = 'Please enter a valid Original Name'
+    if(!formValues.email) {
+        errors.email = 'Please enter a valid Email'
+    }
+    if(!formValues.department_id) {
+        errors.department_id = 'Please enter a Department'
     }
     return errors;
 }
 
+const mapStateToProps = (state) => ({
+    initialValues: state.users.currentUser,
+    departments: state.departments.departments
+})
 
-export default reduxForm({
-    form : 'AddDepartmentForm',
-    validate
-})(AddForm);
+EditForm = reduxForm({form: 'EditUserForm', validate})(EditForm);
+EditForm = connect(mapStateToProps, {})(EditForm)
+export default EditForm;

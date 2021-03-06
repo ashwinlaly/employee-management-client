@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+
 import {logout} from '../../Redux/actions/userAction';
 
 const mapDispatchToProps = {
@@ -19,6 +21,9 @@ class Header extends Component {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
                     <NavDropdown title="" id="collasible-nav-dropdown">
+                        <NavDropdown.Item>
+                            <Link to="/home/user/password/update">Update Password</Link>
+                        </NavDropdown.Item>
                         <NavDropdown.Item onClick={this.props.logout}>Logout</NavDropdown.Item>
                     </NavDropdown>
                 </ul>

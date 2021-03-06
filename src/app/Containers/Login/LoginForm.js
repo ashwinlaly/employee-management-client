@@ -9,32 +9,9 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 import DisplayMessage from '../../Components/DisplayMessage';
-
-const mystyle = {
-    card : {
-        top: '10%'
-    },
-    error : {
-        color: 'red'
-    }
-}
+import { renderInput } from '../../Components/RenderFields';
 
 class LoginForm extends Component {
-
-    renderInput = ({input, label, meta}) => {
-        return(
-            <Form.Group controlId={label}>
-                <Form.Label>{label}</Form.Label>
-                <Form.Control {...input} />
-                {this.renderError(meta)}
-            </Form.Group>
-        )
-    }
-    
-    renderError = ({error, touched}) => {
-        return (touched) ? <div className="form-error">{error}</div> : null
-    }
-    
     render() {
         const {handleSubmit} = this.props
         return (
@@ -42,13 +19,13 @@ class LoginForm extends Component {
                 <Row xs={12} md={12}>
                     <Col/>
                     <Col xs={6}>
-                        <Card id="card" style={mystyle.card}>
+                        <Card id="card">
                             <Card.Header>Login</Card.Header>
                             <Card.Body>
                                 <Card.Title></Card.Title>
                                 <Form onSubmit={handleSubmit} method="post">
-                                    <Field name="email" component={this.renderInput} label="Enter the Email"/>
-                                    <Field name="password" component={this.renderInput} label="Enter the Passowrd"/>
+                                    <Field name="email" component={renderInput} label="Enter the Email"/>
+                                    <Field name="password" type="password" component={renderInput} label="Enter the Password"/>
                                     <Button variant="primary" type="submit" >Submit</Button>
                                 </Form>
                             </Card.Body>

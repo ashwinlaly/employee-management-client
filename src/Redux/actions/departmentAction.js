@@ -1,18 +1,8 @@
 import { toast } from 'react-toastify';
 import {history} from '../../Routes/history';
-import * as commonTypes from '../actionTypes/common';
+import {tokenExpired} from '../../Helpers/helpers';
 import * as departmentTypes from '../actionTypes/department';
 import departmentService from '../../Service/departmentService';
-
-const tokenExpired = (error, actionType, dispatch) => {
-    if(error.response.status === 403) {
-        window.localStorage.removeItem("jwt")
-        dispatch({type: commonTypes.TOKEN_EXPIRED})
-        history.push("/")
-    } else {
-        dispatch(actionType)
-    }
-}
 
 export const getDepartments = () => dispatch => {
     departmentService.getDepartments().then(response => {

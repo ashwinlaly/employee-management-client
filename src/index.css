@@ -50,3 +50,11 @@ body {
     margin-left: -15rem;
   }
 }
+
+
+#card {
+  top: 10%
+}
+.error {
+  color: 'red'
+}    

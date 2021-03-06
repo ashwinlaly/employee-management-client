@@ -11,8 +11,7 @@ class AddProject extends Component {
         this.props.getAllUser()
     }
     _createProject = (data) => {
-        console.log(data)
-        // this.props.createProject(data)
+        this.props.createProject(data)
     }
     render() {
         return (

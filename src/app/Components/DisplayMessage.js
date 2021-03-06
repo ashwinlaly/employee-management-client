@@ -27,7 +27,7 @@ const DisplayMessage = (props) => {
         status = props.successmessage
     }
     
-    type = (props.errormessage || props.errors) ? "error" : "success"
+    // type = (props.errormessage || props.errors) ? "error" : "success"
     if(type === "success") {
         return (<>
             <Alert variant="success" style={mystyle.alertBox}>

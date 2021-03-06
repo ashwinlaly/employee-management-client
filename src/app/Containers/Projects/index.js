@@ -24,7 +24,7 @@ class Project extends Component {
                 <Link to="/home/project/add" className="btn btn-warning"> Add New </Link>
                 <TableList 
                     type="project"
-                    url="/home/projects/"
+                    url="/home/project/"
                     header={this.header} 
                     content={this.props.projects.projects}
                     onDelete={this._deleteProject}

@@ -10,17 +10,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-import {renderInput, renderError} from '../../Components/RenderFields';
 import DisplayMessage from '../../Components/DisplayMessage';
-
-const mystyle = {
-    card : {
-        top: '10%'
-    },
-    error : {
-        color: 'red'
-    }    
-}
+import {renderInput, renderError} from '../../Components/RenderFields';
 
 let EditForm = (props) => {
     return(
@@ -28,11 +19,11 @@ let EditForm = (props) => {
             <Container fluid>
                 <Row xs={12} md={12}>
                     <Col xs={12}>
-                        <Card id="card" style={mystyle.card}>
+                        <Card id="card">
                             <Card.Body>
                                 <Card.Title></Card.Title>
                                 <Form onSubmit={props.handleSubmit} method="post">
-                                    <Field name="name" component={renderInput} type="password" label="Enter the Name"/>
+                                    <Field name="name" component={renderInput} type="text" label="Enter the Name"/>
                                     <Field name="original_name" component={renderInput} label="Enter the Original Name"/>
                                     <Button variant="primary" type="submit" >Submit</Button>
                                     <Link className="btn btn-danger" to="/home/department">Back</Link>

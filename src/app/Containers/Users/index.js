@@ -20,7 +20,11 @@ class User extends Component {
     componentDidMount() {
         this.props.getAllUser()
     }
-    
+
+    _deleteUser = (_id) => {
+        this.props.deleteUser(_id)
+    }
+
     render() {
         return (
             <div>
@@ -31,7 +35,7 @@ class User extends Component {
                     url="/home/user/"
                     header={this.header} 
                     content={this.props.users.users} 
-                    deleteUser={this.props.deleteUser} 
+                    onDelete={this._deleteUser} 
                     getUser={this.props.getUser}
                 />
             </div>

@@ -1,45 +1,35 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-
-const mystyle = {
-    card : {
-        top: '10%'
-    }
-}
+import AddForm from './AddForm';
+import {createUser} from '../../../Redux/actions/userAction';
+import {getDepartments} from '../../../Redux/actions/departmentAction';
 
 
 class AddUser extends Component {
+    componentDidMount() {
+        this.props.getDepartments()
+    }
+
+    _handleSubmit = (data) => {
+        this.props.createUser(data)
+    }
+
     render() {
         return (
-            <Container fluid>
-                <Row xs={12} md={12}>
-                    <Col xs={12}>
-                        <Card id="card" style={mystyle.card}>
-                            <Card.Body>
-                                <Card.Title></Card.Title>
-                                <Form onSubmit={this._onhandleSubmit}>
-                                    <Form.Group controlId="formBasicEmail">
-                                        <Form.Label>Email</Form.Label>
-                                        <Form.Control type="email" placeholder="Enter email" />
-                                    </Form.Group>
-
-                                    <Button variant="primary" type="submit" >Submit</Button>
-                                    <Link to="/home/users" className="btn btn-danger">Back</Link>
-                                </Form>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
+            <Fragment>
+                <AddForm onSubmit={this._handleSubmit} departments={this.props.department.departments}/>
+            </Fragment>
         )
     }
 }
 
-export default AddUser;
+const mapStateToProps = (state) => ({
+    department: state.departments
+})
+const mapDispatchToProps = {
+    createUser,
+    getDepartments
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddUser);

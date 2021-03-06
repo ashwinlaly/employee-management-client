@@ -9,16 +9,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-import {renderInput, renderError, renderSelect} from '../../Components/RenderFields';
-
-const mystyle = {
-    card : {
-        top: '10%'
-    },
-    error : {
-        color: 'red'
-    }    
-}
+import {renderInput, renderSelect} from '../../Components/RenderFields';
 
 class AddForm extends Component{
     render() {
@@ -29,14 +20,15 @@ class AddForm extends Component{
                     <Container fluid>
                         <Row xs={12} md={12}>
                             <Col xs={12}>
-                                <Card id="card" style={mystyle.card}>
+                                <Card id="card" >
                                     <Card.Body>
                                         <Card.Title></Card.Title>
                                         <Form onSubmit={handleSubmit} method="post">
                                             <Field name="name" component={renderInput} label="Enter the Name"/>
-                                            <Field name="lead" component={renderSelect} label="Select the Lead" options={this.props.users} selectOptionName="name" id="_id" />
+                                            <Field name="closes_at" type="date" component={renderInput} label="Enter the Closing Date"/>
+                                            <Field name="lead" component={renderSelect} options={this.props.users} selectOptionName="name" id="_id" selectText="Pleae select an Lead"/>
                                             <Button variant="primary" type="submit" >Submit</Button>
-                                            <Link className="btn btn-danger" to="/home/projects">Back</Link>
+                                            <Link className="btn btn-danger" to="/home/project">Back</Link>
                                         </Form>
                                     </Card.Body>
                                 </Card>
@@ -57,9 +49,12 @@ const validate = (formValues) => {
     if(!formValues.name) {
         errors.name = 'Please enter a valid Name'
     }
-    // if(!formValues.lead.length <= 0) {
-    //     errors.lead = 'Please enter a valid Lead'
-    // }
+    if(!formValues.lead) {
+        errors.lead = 'Please enter a valid Lead'
+    }
+    if(!formValues.closes_at) {
+        errors.closes_at = 'Please enter a Closing date'
+    }
     return errors;
 }
 

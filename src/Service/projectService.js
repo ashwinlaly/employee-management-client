@@ -11,7 +11,7 @@ const projectService = {
     createProject: (data) => {
         return request.post(`/${_PROJECT}`, data)
     },
-    updateProect: (data, _id) => {
+    updateProect: (_id, data) => {
         return request.patch(`/${_PROJECT}/${_id}`,data)
     },
     deleteProject: (_id) => {

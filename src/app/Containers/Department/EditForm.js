@@ -11,7 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 import DisplayMessage from '../../Components/DisplayMessage';
-import {renderInput, renderError} from '../../Components/RenderFields';
+import {renderInput, renderError, renderSelect} from '../../Components/RenderFields';
 
 let EditForm = (props) => {
     return(
@@ -25,6 +25,7 @@ let EditForm = (props) => {
                                 <Form onSubmit={props.handleSubmit} method="post">
                                     <Field name="name" component={renderInput} type="text" label="Enter the Name"/>
                                     <Field name="original_name" component={renderInput} label="Enter the Original Name"/>
+                                    <Field name="status" label="Select the Status" component={renderSelect} options={props.statues} selectOptionName="name" id="_id" selectText="select Status"/>
                                     <Button variant="primary" type="submit" >Submit</Button>
                                     <Link className="btn btn-danger" to="/home/department">Back</Link>
                                 </Form>
@@ -53,6 +54,7 @@ const validate = (formValues) => {
 EditForm = reduxForm({form: "EditForm", validate})(EditForm);
 
 const mapStateToProps = (state) => ({
+    statues: state.common.statues,
     initialValues : state.departments.currentDepartment
 })
 

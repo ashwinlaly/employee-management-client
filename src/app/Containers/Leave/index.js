@@ -16,7 +16,7 @@ class Leave extends Component {
             leave_id : _id,
             status : (status) ? "1" : "0"
         }
-        this.props.approveLeave()
+        this.props.approveLeave(data)
     }
     render() {
         return (

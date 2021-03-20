@@ -25,7 +25,7 @@ export const getProject = (_id) => dispatch => {
             toast.error(response.message)
             dispatch({type: projectTypes.GET_PROJECT_ERROR, payload: response.data})
         } else {
-            toast.success(response.message)
+            // toast.success(response.message)
             dispatch({type: projectTypes.GET_PROJECT_SUCCESS, payload: response})
         }
     }).catch(error => {
@@ -40,7 +40,7 @@ export const getProjects = () => dispatch => {
             toast.error(response.message)
             dispatch({type: projectTypes.LISTING_PROJECT_ERROR, payload: response.data})
         } else {
-            toast.success(response.message, {position: "bottom-right"})
+            // toast.success(response.message, {position: "bottom-right"})
             dispatch({type: projectTypes.LISTING_PROJECT_SUCCESS, payload: response})
         }
     }).catch(error => {

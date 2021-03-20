@@ -12,14 +12,14 @@ class AddDepartment extends Component {
         return (
             <Fragment>
                 <h1>Add Department</h1>
-                <AddForm onSubmit={this._onhandleSubmit}/>
+                <AddForm onSubmit={this._onhandleSubmit} {...this.props}/>
             </Fragment>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    
+    statues: state.common.statues
 })
 
 const mapDispatchToProps = {

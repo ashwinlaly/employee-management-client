@@ -10,7 +10,7 @@ export const getDepartments = () => dispatch => {
             toast.error(response.message)
             dispatch({type: departmentTypes.LISTING_DEPARTMENT_ERROR, payload: response.data})
         } else {
-            toast.success(response.message, {position: "bottom-right"})
+            // toast.success(response.message, {position: "bottom-right"})
             dispatch({type: departmentTypes.LISTING_DEPARTMENT_SUCCESS, payload: response})
         }
     }).catch(error => {
@@ -24,7 +24,7 @@ export const getDepartment = (_id) => dispatch => {
             toast.error(response.message)
             dispatch({type: departmentTypes.GET_DEPARTMENT_ERROR, payload: response.data})
         } else {
-            toast.success(response.message)
+            // toast.success(response.message)
             dispatch({type: departmentTypes.GET_DEPARTMENT_SUCCESS, payload: response})
         }
     }).catch(error => {

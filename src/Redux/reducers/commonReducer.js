@@ -3,7 +3,8 @@ import * as commonTypes from '../actionTypes/common';
 
 const INITIAL_STATE = {
     token : null,
-    message : ''
+    message : '',
+    statues : [{"name": "Active", _id: true} , {"name": "InActive", _id: false}]
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -22,7 +23,8 @@ export default (state = INITIAL_STATE, action) => {
         case userTypes.USER_LOGIN_ERROR:
             return {...state, token: null, errormessage: action.payload.message, errors: action.payload.error}
         case userTypes.USER_LOGIN_SUCCESS:
-            return {...state, token: action.payload.data.access_token, refresh_token: action.payload.data.refresh_token, successmessage: action.payload.message, errormessage: '', errors: ''}
+            let {counts} = action.payload.data
+            return {...state, token: action.payload.data.access_token, refresh_token: action.payload.data.refresh_token, successmessage: action.payload.message, errormessage: '', errors: '', counts}
         default:
             return state
     }

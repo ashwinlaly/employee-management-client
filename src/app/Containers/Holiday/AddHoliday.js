@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import {Link} from 'react-router-dom';
-import {Field, reduxForm} from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,9 +11,13 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 import DisplayMessage from '../../Components/DisplayMessage';
+import { createHoliday } from '../../../Redux/actions/holidayAction';
 import {renderInput, renderSelect} from '../../Components/RenderFields';
 
-class AddForm extends Component {
+class AddHoliday extends Component {
+    _createHoliday = (data) => {
+        this.props.createHoliday(data)
+    }
     render() {
         const {handleSubmit} = this.props
         return (
@@ -20,26 +25,27 @@ class AddForm extends Component {
                 <Container fluid>
                     <Row xs={12} md={12}>
                         <Col xs={12}>
-                            <Card id="card">
+                            <Card id="card" >
                                 <Card.Body>
                                     <Card.Title></Card.Title>
-                                    <Form onSubmit={handleSubmit} method="post">
+                                    <Form onSubmit={handleSubmit(this._createHoliday)} method="post">
                                         <Field name="name" component={renderInput} label="Enter the Name"/>
-                                        <Field name="email" component={renderInput} label="Enter the Email"/>
-                                        <Field name="department_id" label="Select the Department" component={renderSelect} options={this.props.departments} selectOptionName="name" id="_id" selectText="select a Department"/>
-                                        <Field name="project" label="Select the Project" component={renderSelect} options={this.props.projects} selectOptionName="name" id="_id" selectText="select a Project"/>
+                                        <Field name="date" type="date" component={renderInput} label="Enter the Date"/>
                                         <Field name="status" label="Select the Status" component={renderSelect} options={this.props.statues} selectOptionName="name" id="_id" selectText="select Status"/>
                                         <Button variant="primary" type="submit" >Submit</Button>
-                                        <Link className="btn btn-danger" to="/home/user">Back</Link>
+                                        <Link className="btn btn-danger" to="/home/holiday">Back</Link>
                                     </Form>
                                 </Card.Body>
                             </Card>
-                            <DisplayMessage {...this.props.users}/>
                         </Col>
                     </Row>
                 </Container>
+                {(this.props.holidays.errors) ? 
+                    <DisplayMessage
+                        errormessage={this.props.holidays.errormessage} 
+                        errors={this.props.holidays.errors} /> : null}
             </Fragment>
-        );
+        )
     }
 }
 
@@ -49,16 +55,20 @@ const validate = (formValues) => {
     if(!formValues.name) {
         errors.name = 'Please enter a valid Name'
     }
-    if(!formValues.email) {
-        errors.email = 'Please enter a valid Email'
-    }
-    if(!formValues.department_id) {
-        errors.department_id = 'Please enter a Department'
+    if(!formValues.date) {
+        errors.date = 'Please enter a date'
     }
     return errors;
 }
 
-export default reduxForm({
-    form: 'AddUserForm',
-    validate
-})(AddForm);
+const mapStateToProps = (state) => ({
+    holidays: state.holidays,
+    statues: state.common.statues
+})
+
+const mapDispatchToProps = {
+    createHoliday
+}
+
+AddHoliday = reduxForm({form: 'AddHoliday', validate})(AddHoliday);
+export default connect(mapStateToProps, mapDispatchToProps)(AddHoliday);

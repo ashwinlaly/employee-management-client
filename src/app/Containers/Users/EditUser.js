@@ -1,14 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import EditForm from './EditForm';
+import {getProjects} from '../../../Redux/actions/projectAction';
 import {getUser, patchUser} from '../../../Redux/actions/userAction';
 import {getDepartments} from '../../../Redux/actions/departmentAction';
 
 class EditUser extends Component {
     componentDidMount(){
         let _id = this.props.match.params.id
-        this.props.getDepartments()
         this.props.getUser(_id)
+        this.props.getProjects()
+        this.props.getDepartments()
     }
 
     _handleSubmit = (data) => {
@@ -32,6 +34,7 @@ const mapStateToProps = ({users}) => ({
 const mapDispatchToProps = {
     getUser,
     patchUser,
+    getProjects,
     getDepartments
 }
 

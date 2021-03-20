@@ -15,6 +15,11 @@ export default (state = {}, action) => {
         case userTypes.DELETE_EMPLOYEE_SUCCESS:
             return { ...state, users: action.payload.data, successmessage: action.payload.message, errormessage: '', currentUser: null}
 
+        case userTypes.CREATE_EMPLOYEE_ERROR:
+            return {...state, errormessage: action.payload.message, errors: action.payload.error}
+        case userTypes.UPDATE_EMPLOYEE_ERROR:
+            return {...state, errormessage: action.payload.message, errors: action.payload.error}
+
         case userTypes.USER_LEAVE_APPROVED_ERROR:
             return {...state, errormessage: action.payload.message, successmessage: ''}
         case userTypes.USER_LEAVE_APPROVED_SUCCESS:

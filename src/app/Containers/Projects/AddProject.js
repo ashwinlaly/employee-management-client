@@ -17,7 +17,7 @@ class AddProject extends Component {
         return (
             <div>
                 <h1>Add Project</h1>
-                <AddForm onSubmit={this._createProject} users={this.props.lead.users} />  
+                <AddForm onSubmit={this._createProject} users={this.props.lead.users} {...this.props}/>  
                 {(this.props.projects.errors) ? 
                     <DisplayMessage
                         errormessage={this.props.projects.errormessage} 
@@ -29,7 +29,8 @@ class AddProject extends Component {
 
 const mapStateToProps = (state) => ({
     projects: state.projects,
-    lead: state.users
+    lead: state.users,
+    statues: state.common.statues
 })
 
 const mapDispatchToProps = {

@@ -34,7 +34,7 @@ export const getAllUser = () => dispatch => {
             toast.error(response.message)
             dispatch({type: userTypes.LISTING_EMPLOYEE_ERROR, payload: response.data})
         } else {
-            toast.success(response.message, {position: "bottom-right"})
+            // toast.success(response.message, {position: "bottom-right"})
             dispatch({type: userTypes.LISTING_EMPLOYEE_SUCCESS, payload: response.data})
         }
     }).catch(error => {
@@ -63,7 +63,7 @@ export const getUser = (_id) => dispatch => {
             toast.error(response.message)
             dispatch({type: userTypes.GET_EMPLOYEE_ERROR, payload: response.data})
         } else {
-            toast.success(response.message)
+            // toast.success(response.message)
             dispatch({type: userTypes.GET_EMPLOYEE_SUCCESS, payload: response})
         }
     }).catch(error => {
@@ -75,10 +75,10 @@ export const patchUser = (_id, data) => dispatch => {
     userService.updateUser(_id, data).then(response => {
         if(response.code === 422 || response.code === 206) {
             toast.error(response.message)
-            dispatch({type: userTypes.UPDATE_EMPLOYEE_ERROR, payload: response.data})
+            dispatch({type: userTypes.UPDATE_EMPLOYEE_ERROR, payload: response})
         } else {
             toast.success(response.message)
-            dispatch({type: userTypes.UPDATE_EMPLOYEE_SUCCESS, payload: response.data})
+            dispatch({type: userTypes.UPDATE_EMPLOYEE_SUCCESS, payload: response})
             history.push("/home/user")
         }
     }).catch(error => {
@@ -137,7 +137,7 @@ export const getuserLeave = () => dispatch => {
             toast.error(response.message)
             dispatch({type: userTypes.GET_USER_LEAVE_FOR_LISTING_ERROR, payload: response})
         } else {
-            toast.success(response.message)
+            // toast.success(response.message)
             dispatch({type: userTypes.GET_USER_LEAVE_FOR_LISTING_SUCCESS, payload: response})
         }
     }).catch(error => {
@@ -151,7 +151,7 @@ export const getAllUserLeave = () => dispatch => {
             toast.error(response.message)
             dispatch({type: userTypes.GET_ALL_USER_LEAVE_FOR_LISTING_ERROR, payload: response})
         } else {
-            toast.success(response.message)
+            // toast.success(response.message)
             dispatch({type: userTypes.GET_ALL_USER_LEAVE_FOR_LISTING_SUCCESS, payload: response})
         }
     }).catch(error => {
@@ -160,7 +160,7 @@ export const getAllUserLeave = () => dispatch => {
 }
 
 export const approveLeave = (data) => dispatch => {
-    userService.applyLeave(data).then(response => {
+    userService.approveLeave(data).then(response => {
         if(response.code === 422 || response.code === 206) {
             toast.error(response.message)
             dispatch({type: userTypes.USER_LEAVE_APPROVED_ERROR, payload: response})

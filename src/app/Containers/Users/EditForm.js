@@ -27,13 +27,15 @@ class EditForm extends Component {
                                     <Form onSubmit={handleSubmit} method="post">
                                         <Field name="name" component={renderInput} label="Enter the Name"/>
                                         <Field name="email" component={renderInput} label="Enter the Email"/>
-                                        <Field name="department_id" label="Select the Department" component={renderSelect} options={this.props.departments} selectOptionName="name" id="_id" selectText="select a Department"/>
+                                        <Field name="department_id" component={renderSelect} options={this.props.departments} label="Select the Department" selectOptionName="name" id="_id" selectText="select a Department"/>
+                                        <Field name="project" label="Select the Project" component={renderSelect} options={this.props.projects} selectOptionName="name" id="_id" selectText="select a Project"/>
+                                        <Field name="status" label="Select the Status" component={renderSelect} options={this.props.statues} selectOptionName="name" id="_id" selectText="select Status"/>
                                         <Button variant="primary" type="submit" >Submit</Button>
                                         <Link className="btn btn-danger" to="/home/user">Back</Link>
                                     </Form>
                                 </Card.Body>
                             </Card>
-                            <DisplayMessage {...this.props} renderError={renderError}/>
+                            <DisplayMessage {...this.props.user}/>
                         </Col>
                     </Row>
                 </Container>
@@ -58,8 +60,10 @@ const validate = (formValues) => {
 }
 
 const mapStateToProps = (state) => ({
+    statues: state.common.statues,
+    projects: state.projects.projects,
     initialValues: state.users.currentUser,
-    departments: state.departments.departments
+    departments: state.departments.departments,
 })
 
 EditForm = reduxForm({form: 'EditUserForm', validate})(EditForm);

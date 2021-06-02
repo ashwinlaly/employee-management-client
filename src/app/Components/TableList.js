@@ -2,14 +2,19 @@ import React, { Component, Fragment, useState } from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/esm/Button';
+import Button from 'react-bootstrap/Button';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 import Form from 'react-bootstrap/Form';
 
 class TableList extends Component {
     render() {
         if(this.props.content) {
-            if(this.props.type !== "leaves") {
+            if(this.props.type === "leaves") {
+                return <TableListForLeaves header={this.props.headers} content={this.props.content} approveLeave={this.props.approveLeave} isAdmin={this.props.user}/>
+            } else if(this.props.type === "holidayCalender") {
+                return <TableListForHolidayCalender header={this.props.headers} content={this.props.content}/>
+            }else {
                 return (
                     <Table striped bordered hover variant="dark">
                         <thead>
@@ -35,8 +40,6 @@ class TableList extends Component {
                         </tbody>
                     </Table>
                 )
-            } else {
-                return <TableListForLeaves header={this.props.headers} content={this.props.content} approveLeave={this.props.approveLeave} isAdmin={this.props.user}/>
             }
         } else {
             return null
@@ -48,7 +51,7 @@ class TableList extends Component {
 class TableListForLeaves extends Component {
     constructor() {
         super()
-        this.Tableheaders = ["Name", "Reason", "Date", "Status"]
+        this.Tableheaders = ["Name", "Reason", "Date", "Type", "Status"]
         this.state = {
             selected : {}
         }
@@ -90,6 +93,9 @@ class TableListForLeaves extends Component {
                                     {from_Date.getDate() + "-" + (from_Date.getMonth()+1) + "-" + from_Date.getFullYear()}  -    {to_Date.getDate() + "-" + (to_Date.getMonth()+1) + "-" + to_Date.getFullYear()}
                                 </td>
                                 <td>
+                                    {data.leave_type === 1? "Casual" : "Sick"}
+                                </td>
+                                <td>
                                     <LeaveApprovalCheckBox toggleCheckbox={() => this.toggleCheckbox(data._id)} checked={data.status} isAdmin={this.props.isAdmin}/>
                                 </td>
                             </tr>)
@@ -107,7 +113,7 @@ const LeaveApprovalCheckBox = ({checked,toggleCheckbox, isAdmin}) => {
         setStatus(!status)
         toggleCheckbox()
     }
-    if(isAdmin) {
+    if(isAdmin === "true") {
         return (
             <Form.Group controlId="formBasicCheckbox">
                 <Form.Check type="checkbox" 
@@ -117,12 +123,29 @@ const LeaveApprovalCheckBox = ({checked,toggleCheckbox, isAdmin}) => {
             </Form.Group>
         )   
     } else {
-        return (status == 1)? 'Approved' : 'Un Approved'
+        return (status === 1)? 'Approved' : 'Un Approved'
     }
 }
 
+const TableListForHolidayCalender = ({content}) => {
+    return (
+        <Fragment>
+            <ListGroup as="ul">
+                {(content).map((data, key) => {
+                    let date = new Date(data.date)
+                    return (
+                        <ListGroup.Item as="li" key={key}>
+                            {data.name} - {date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear()}
+                        </ListGroup.Item>
+                    )
+                })}
+            </ListGroup>
+        </Fragment>
+    )
+}
+
 const mapStateToProps = (state) => ({
-    user: state.users.isAdmin
+    user: localStorage.getItem("isAdmin")
 })
 
 export default connect(mapStateToProps, {})(TableList);

@@ -26,6 +26,7 @@ class AddForm extends Component {
                                     <Form onSubmit={handleSubmit} method="post">
                                         <Field name="name" component={renderInput} label="Enter the Name"/>
                                         <Field name="original_name" component={renderInput} label="Enter the Original Name"/>
+                                        <Field name="total_leave" component={renderInput} label="Enter Days of Leave"/>
                                         <Field name="status" label="Select the Status" component={renderSelect} options={this.props.statues} selectOptionName="name" id="_id" selectText="select Status"/>
                                         <Button variant="primary" type="submit" >Submit</Button>
                                         <Link className="btn btn-danger" to="/home/department">Back</Link>
@@ -46,6 +47,9 @@ const validate = (formValues) => {
 
     if(!formValues.name) {
         errors.name = 'Please enter a valid Name'
+    }
+    if(!formValues.total_leave) {
+        errors.total_leave = 'Please enter total days of leave'
     }
     if(!formValues.original_name) {
         errors.original_name = 'Please enter a valid Original Name'

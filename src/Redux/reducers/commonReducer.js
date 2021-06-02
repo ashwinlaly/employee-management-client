@@ -4,13 +4,29 @@ import * as commonTypes from '../actionTypes/common';
 const INITIAL_STATE = {
     token : null,
     message : '',
-    statues : [{"name": "Active", _id: true} , {"name": "InActive", _id: false}]
+    statues : [{"name": "Active", _id: true} , {"name": "InActive", _id: false}],
+    leave_types : [{"name": "Casual Leave", _id: 1} , {"name": "Sick Leave", _id: 2}],
+    counts  : {
+        user: {
+          active: 0,
+          inactive: 0
+        },
+        project: {
+          active: 0,
+          inactive: 0
+        },
+        department: {
+          active: 0,
+          inactive: 0
+        }
+    }
 }
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case commonTypes.LOGOUT:
             window.localStorage.removeItem("jwt")
+            window.localStorage.removeItem("isAdmin")
             return {...state, redirectTo : "/", token : null, currectUser : null,successmessage: "USER LOGOUT SUCCESS"}
         case commonTypes.APP_LOAD:
             return {...state, currectUser : action.payload ? action.payload.user : null,  appLoaded: true }

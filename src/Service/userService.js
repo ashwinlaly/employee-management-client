@@ -33,6 +33,12 @@ const userService = {
     },
     approveLeave: (data) => {
         return request.post(`/leave/approve`, data)
+    },
+    getProfile: () => {
+        return request.get(`/profile`)
+    },
+    updateProfile: (data) => {
+        return request.post(`/profile`, data)
     }
 }
 

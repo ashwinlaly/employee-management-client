@@ -11,7 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 import DisplayMessage from '../../Components/DisplayMessage';
-import {renderInput, renderError, renderSelect} from '../../Components/RenderFields';
+import {renderInput, renderSelect} from '../../Components/RenderFields';
 
 class EditForm extends Component {
     render() {
@@ -25,6 +25,7 @@ class EditForm extends Component {
                                 <Card.Body>
                                     <Card.Title></Card.Title>
                                     <Form onSubmit={handleSubmit} method="post">
+                                        <Field name="emp_id" component={renderInput} label="Enter the Employee Number"/>
                                         <Field name="name" component={renderInput} label="Enter the Name"/>
                                         <Field name="email" component={renderInput} label="Enter the Email"/>
                                         <Field name="department_id" component={renderSelect} options={this.props.departments} label="Select the Department" selectOptionName="name" id="_id" selectText="select a Department"/>
@@ -46,7 +47,9 @@ class EditForm extends Component {
 
 const validate = (formValues) => {
     const errors = {}
-
+    if(!formValues.emp_id) {
+        errors.emp_id = 'Please enter a Employee Number'
+    }
     if(!formValues.name) {
         errors.name = 'Please enter a valid Name'
     }

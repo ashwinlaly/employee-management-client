@@ -24,6 +24,7 @@ class AddForm extends Component {
                                 <Card.Body>
                                     <Card.Title></Card.Title>
                                     <Form onSubmit={handleSubmit} method="post">
+                                        <Field name="emp_id" component={renderInput} label="Enter the Employee Number"/>
                                         <Field name="name" component={renderInput} label="Enter the Name"/>
                                         <Field name="email" component={renderInput} label="Enter the Email"/>
                                         <Field name="department_id" label="Select the Department" component={renderSelect} options={this.props.departments} selectOptionName="name" id="_id" selectText="select a Department"/>
@@ -46,6 +47,9 @@ class AddForm extends Component {
 const validate = (formValues) => {
     const errors = {}
 
+    if(!formValues.emp_id) {
+        errors.emp_id = 'Please enter a Employee Number'
+    }
     if(!formValues.name) {
         errors.name = 'Please enter a valid Name'
     }

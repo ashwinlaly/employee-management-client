@@ -10,10 +10,14 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-import {renderInput} from '../../Components/RenderFields';
-import {applyLeave} from '../../../Redux/actions/userAction';
+import {renderInput, renderSelect} from '../../Components/RenderFields';
+import {applyLeave, getAllUser} from '../../../Redux/actions/userAction';
 
 class ApplyLeave extends Component {
+    componentDidMount() {
+        this.props.getAllUser()
+    }
+
     _handleSubmit = (data) => {
         this.props.applyLeave(data)
     }
@@ -33,6 +37,8 @@ class ApplyLeave extends Component {
                                         <Field name="from_date" type="date" component={renderInput} label="Select From Date"/>
                                         <Field name="to_date" type="date" component={renderInput} label="Select To Date"/>
                                         <Field name="reason" component={renderInput} label="Reason for leave"/>
+                                        <Field name="leave_type" label="Select the Type" component={renderSelect} options={this.props.leave_types} selectOptionName="name" id="_id" selectText="select Leave Type"/>
+                                        <Field name="approval_by" label="To be Approved by" component={renderSelect} options={this.props.users.users} selectOptionName="name" id="_id" selectText="To be approved by"/>
                                         <Button variant="primary" type="submit" >Submit</Button>
                                         <Link className="btn btn-danger" to="/home/leave">Back</Link>
                                     </Form>
@@ -61,8 +67,14 @@ const validate = (formValues) => {
 }
 
 const mapDispatchToProps = {
-    applyLeave
+    applyLeave,
+    getAllUser
 }
 
+const mapStateToProps = (state) => ({
+    leave_types: state.common.leave_types,
+    users: state.users
+})
+
 ApplyLeave = reduxForm({form: "ApplyLeave", validate})(ApplyLeave)
-export default connect(null, mapDispatchToProps)(ApplyLeave);
+export default connect(mapStateToProps, mapDispatchToProps)(ApplyLeave);

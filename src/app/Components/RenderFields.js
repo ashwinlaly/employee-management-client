@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import Form from 'react-bootstrap/Form';
 
-export const renderInput = ({input, label, meta, type}) => {
+export const renderInput = ({input, label, meta, type, disabled}) => {
     return(
         <Form.Group controlId={label}>
             <Form.Label>{label}</Form.Label>
-            <Form.Control {...input} type={type}/>
+            <Form.Control {...input} type={type} disabled={(disabled) ? true: false} />
             {renderError(meta)}
         </Form.Group>
     )

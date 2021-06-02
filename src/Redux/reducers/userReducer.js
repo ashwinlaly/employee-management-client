@@ -3,6 +3,7 @@ import * as userTypes from '../actionTypes/user';
 export default (state = {}, action) => {
     switch (action.type) {
         case userTypes.USER_LOGIN_SUCCESS:
+            localStorage.setItem("isAdmin", action.payload.data.isAdmin)
             return {...state, isAdmin: action.payload.data.isAdmin}
         case userTypes.GET_EMPLOYEE_ERROR:
             return {...state, users: [], errormessage: action.payload.message, successmessage: '', currentUser: null}
@@ -32,6 +33,11 @@ export default (state = {}, action) => {
             return {...state, errormessage: action.payload.message, successmessage: '', leaves: []}
         case userTypes.GET_ALL_USER_LEAVE_FOR_LISTING_SUCCESS:
             return { ...state, successmessage: action.payload.message, leaves: action.payload.data}
+
+        case userTypes.MY_PROFILE_DATA_SUCCESS:
+            return { ...state, profile: action.payload.data, successmessage: action.payload.message}
+        case userTypes.MY_PROFILE_DATA_ERROR:
+            return {...state, profile: null, errormessage: action.payload.message, successmessage: ''}
         default:
             return state
     }

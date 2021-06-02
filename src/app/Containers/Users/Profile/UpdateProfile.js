@@ -12,8 +12,12 @@ import Container from 'react-bootstrap/Container';
 
 import {renderInput} from '../../../Components/RenderFields';
 import DisplayMessage from '../../../Components/DisplayMessage';
+import {getProfile} from '../../../../Redux/actions/userAction';
 
 class UpdateProfile extends Component {
+    componentDidMount() {
+        this.props.getProfile()
+    }
     render() {
         const { handleSubmit } = this.props
         return (
@@ -26,7 +30,7 @@ class UpdateProfile extends Component {
                                     <Card.Title>Update Profile</Card.Title>
                                     <Form onSubmit={handleSubmit} method="post">
                                         <Field name="name" component={renderInput} label="Enter the Name"/>
-                                        <Field name="email" component={renderInput} label="Enter the Email"/>
+                                        <Field name="email"   props={{disabled: true}} component={renderInput} label="Email"/>
                                         <Button variant="primary" type="submit" >Submit</Button>
                                         <Link className="btn btn-danger" to="/home/">Back</Link>
                                     </Form>
@@ -42,11 +46,11 @@ class UpdateProfile extends Component {
 }
 
 const mapStateToProps = (state) => ({
-
+    initialValues : state.users.profile
 })
 
 const mapDispatchToProps = {
-
+    getProfile
 }
 
 const validate = (formValues) => {

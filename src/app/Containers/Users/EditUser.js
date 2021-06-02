@@ -20,6 +20,7 @@ class EditUser extends Component {
     render() {
         return (
             <Fragment>
+                <h1>Edit User</h1>
                 {(this.props.user.currentUser)? 
                     <EditForm {...this.props} onSubmit={this._handleSubmit}/> : null }
             </Fragment>

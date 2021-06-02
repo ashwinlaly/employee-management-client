@@ -1,29 +1,22 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router-dom';
 
 import TableList from '../../Components/TableList';
-import { getAllHoliday, deleteHoliday } from '../../../Redux/actions/holidayAction';
+import { getAllHoliday } from '../../../Redux/actions/holidayAction';
 
-class Holiday extends Component {
-    header = ["name"]
+class HolidayCalendar extends Component {
+    header = ["name", "date"]
     
     componentDidMount() {
         this.props.getAllHoliday()
-    }
-
-    _deleteHoliday = (_id) => {
-        console.log(_id)
-        // this.props.deleteHoliday(_id)
     }
 
     render() {
         return (
             <Fragment>
                 <h1>All Holidays</h1>
-                <Link to="/home/holiday/add" className="btn btn-warning"> Add New </Link>
                 <TableList 
-                    type="holiday"
+                    type="holidayCalender"
                     url="/home/holiday/"
                     header={this.header} 
                     content={this.props.holidays.holidays}
@@ -39,8 +32,7 @@ const mapStateToProps = ({holidays}) => ({
 })
 
 const mapDispatchToProps = {
-    getAllHoliday,
-    deleteHoliday
+    getAllHoliday
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Holiday);
+export default connect(mapStateToProps, mapDispatchToProps)(HolidayCalendar);

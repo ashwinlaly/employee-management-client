@@ -173,6 +173,20 @@ export const approveLeave = (data) => dispatch => {
     })
 }
 
+export const getProfile = () => dispatch => {
+    userService.getProfile().then(response => {
+        if(response.code === 422 || response.code === 206) {
+            toast.error(response.message)
+            dispatch({type: userTypes.MY_PROFILE_DATA_ERROR, payload: response})
+        } else {
+            // toast.success(response.message)
+            dispatch({type: userTypes.MY_PROFILE_DATA_SUCCESS, payload: response})
+        }
+    }).catch(error => {
+        tokenExpired(error, {type: userTypes.MY_PROFILE_DATA_ERROR, payload: error}, dispatch)
+    })
+}
+
 export const logout = () => dispatch => {
     dispatch({type: commonTypes.LOGOUT})   
     history.push("/login")
